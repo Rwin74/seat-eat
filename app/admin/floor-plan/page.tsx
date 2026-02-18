@@ -9,7 +9,11 @@ import { TableWithStatus } from '@/lib/types'
 
 export default function FloorPlanEditor() {
     // Local state for tables (initializing from mock data)
-    const [tables, setTables] = useState<TableWithStatus[]>(mockTables.filter(t => t.restaurant_id === '1'))
+    const [tables, setTables] = useState<TableWithStatus[]>(
+        mockTables
+            .filter(t => t.restaurant_id === '1')
+            .map(t => ({ ...t, isOccupied: false }))
+    )
     const [draggedId, setDraggedId] = useState<string | null>(null)
     const [selectedTable, setSelectedTable] = useState<TableWithStatus | null>(null)
 
@@ -72,7 +76,8 @@ export default function FloorPlanEditor() {
             capacity: 2,
             x_pos: 50,
             y_pos: 50,
-            status: 'available',
+            isOccupied: false,
+            is_active: true,
             features: [],
             min_trust_score: 0
         }
